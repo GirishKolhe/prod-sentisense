@@ -5,7 +5,7 @@ echo "installing nltk..."
 pip install nltk
 
 echo "installing scikit-learn..."
-pip install scikit-learn
+pip install scikit-learn==1.6.1
 
 echo "Downloading and linking spacy..."
 pip install spacy
