@@ -9,7 +9,7 @@ pandas
 requests
 scikit-learn
 scipy
-spacy
+spacy==3.1.2
 numpy
 pickleshare
 chardet
