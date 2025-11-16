@@ -9,6 +9,6 @@ pandas
 requests
 scikit-learn
 scipy
-numpy==2.0.2
+numpy
 pickleshare
 chardet
