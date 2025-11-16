@@ -1,0 +1,17 @@
+# environment.yml
+name: prod-recommendation-sentisense
+channels:
+  - conda-forge
+dependencies:
+  - python=3.9
+  - pip
+  - flask
+  - gunicorn
+  - pandas
+  - scikit-learn
+  - scipy
+  - numpy
+  - spacy=3.1.2
+  - nltk
+  # Note: Cython, MarkupSafe, Werkzeug, Jinja2, etc., will be handled as dependencies 
+  # or installed by pip. We keep the core libraries here.
