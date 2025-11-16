@@ -5,7 +5,7 @@ MarkupSafe
 Werkzeug
 Cython
 nltk
-pandas==2.2.2
+pandas
 requests
 scikit-learn
 scipy
