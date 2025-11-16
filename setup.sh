@@ -14,5 +14,8 @@ echo "Downloading en_core_web_sm..."
 python -m spacy download en_core_web_sm
 # The 'download' command automatically runs 'link'
 
-echo "installing scipy..."
+echo "Installing scipy..."
 pip install scipy
+
+echo "Getting all versions..."
+pip freeze
