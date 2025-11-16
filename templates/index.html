@@ -7,6 +7,38 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
   <title>Product Recommendation System</title>
+  
+  <style>
+    /* CSS for the simple three-dot animation */
+    @keyframes blink {
+      0% {
+        opacity: .2;
+      }
+      20% {
+        opacity: 1;
+      }
+      100% {
+        opacity: .2;
+      }
+    }
+
+    .loading-dot {
+      animation-name: blink;
+      animation-duration: 1.4s;
+      animation-iteration-count: infinite;
+      animation-fill-mode: both;
+      font-weight: bold;
+    }
+
+    .loading-dot:nth-child(2) {
+      animation-delay: .2s;
+    }
+
+    .loading-dot:nth-child(3) {
+      animation-delay: .4s;
+    }
+  </style>
+
 </head>
 
 <body class="bg-gray-50 min-h-screen">
@@ -26,7 +58,7 @@
     </div>
 
     <div class="mb-8">
-      <form class="flex flex-col sm:flex-row gap-4 items-center" method="POST" action="/recommend">
+      <form id="recommendation-form" class="flex flex-col sm:flex-row gap-4 items-center" method="POST" action="/recommend">
 
         <div class="flex flex-1 w-full sm:w-auto">
           <label for="User Name" class="sr-only">Username</label>
@@ -43,7 +75,7 @@
         </div>
 
         <div class="w-full sm:w-auto">
-          <button type="submit" value="recommend"
+          <button id="recommend-button" type="submit" value="recommend"
             class="w-full py-3 px-6 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition duration-150 ease-in-out flex items-center justify-center">
             <i data-lucide="search" class="w-4 h-4 mr-2"></i>
             Get Recommendations
@@ -72,7 +104,7 @@
     {% endif %}
     {% else %}
     <div class="p-4 rounded-lg font-medium mb-8">
-      {{ text }} <strong class="text-gray-900">{{ user }}</strong>
+      {% if text %}{{ text }} <strong class="text-gray-900">{{ user }}</strong>{% endif %}
     </div>
     {% endif %}
 
@@ -121,7 +153,29 @@
   </div>
 
   <script>
+    // Initialize Lucide icons
     lucide.createIcons();
+
+    // --- JavaScript for Loading State ---
+    const form = document.getElementById('recommendation-form');
+    const button = document.getElementById('recommend-button');
+
+    form.addEventListener('submit', function() {
+      // 1. Change appearance and disable the button
+      button.disabled = true;
+      button.classList.remove('bg-indigo-600', 'hover:bg-indigo-700', 'focus:ring-indigo-500');
+      button.classList.add('bg-gray-400', 'cursor-not-allowed');
+
+      // 2. Change the content to the loading dots
+      button.innerHTML = `
+        <span class="flex items-center">
+          Fetching Recommendations 
+          <span class="loading-dot ml-2">.</span>
+          <span class="loading-dot">.</span>
+          <span class="loading-dot">.</span>
+        </span>
+      `;
+    });
   </script>
 </body>
 
