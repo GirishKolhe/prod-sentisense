@@ -2,6 +2,7 @@
 # setup.sh
 
 echo "Downloading and linking spacy model..."
+pip install spacy
 # Install the exact model version that matches your spacy version
 python -m spacy download en_core_web_sm
 # The 'download' command automatically runs 'link'
