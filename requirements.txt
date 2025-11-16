@@ -1,3 +1,15 @@
+Flask
+Jinja2
+gunicorn
+MarkupSafe
+Werkzeug
+Cython
+nltk
+pandas
+requests
+scikit-learn
+scipy
+numpy
 pickleshare
 chardet
-requests
+en-core-web-sm @ https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-3.1.0/en_core_web_sm-3.1.0-py3-none-any.whl
