@@ -1,14 +1,9 @@
 # Importing Libraries
-# from nltk.corpus.reader import reviews
 import pandas as pd
-import re, nltk, spacy, string
-import en_core_web_sm
+import re, nltk, spacy
 import pickle as pk
 
-from sklearn.feature_extraction.text import TfidfTransformer, CountVectorizer
-from sklearn.ensemble import RandomForestClassifier,GradientBoostingClassifier
 from nltk.corpus import stopwords
-from nltk.tokenize import word_tokenize
 from nltk.stem import LancasterStemmer
 from nltk.stem import WordNetLemmatizer
 nltk.download('punkt_tab')
