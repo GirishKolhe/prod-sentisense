@@ -17,8 +17,6 @@ tfidf_transformer = pk.load(open('pickle_files/tfidf_transformer.pkl','rb')) # T
 model = pk.load(open('pickle_files/model.pkl','rb'))                          # Classification Model
 recommend_matrix = pk.load(open('pickle_files/user_final_rating.pkl','rb'))   # User-User Recommendation System 
 
-# nlp = spacy.load('en_core_web_sm',disable=['ner','parser'])
-
 product_df = pd.read_csv('./Dataset/sample30.csv',sep=",")
 
 # special_characters removal
