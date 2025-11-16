@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+  <title>Product Recommendation System</title>
+</head>
+
+<body class="bg-gray-50 min-h-screen">
+  <div class="max-w-4xl mx-auto p-6 lg:p-10 bg-white shadow-lg rounded-xl mt-10">
+
+    <div class="flex justify-between items-center mb-6 border-b pb-3">
+      <h1 class="text-4xl font-extrabold text-gray-900 flex items-center flex-shrink min-w-0">
+        <i data-lucide="store" class="w-8 h-8 mr-3 text-indigo-700"></i>
+        Product Recommendation System
+      </h1>
+
+      <a href="/"
+        class="flex items-center text-sm font-medium text-indigo-600 hover:text-indigo-800 transition duration-150 ease-in-out border border-indigo-600 hover:border-indigo-800 rounded-lg px-4 py-2 flex-shrink-0">
+        <i data-lucide="home" class="w-4 h-4 mr-2"></i>
+        Home
+      </a>
+    </div>
+
+    <div class="mb-8">
+      <form class="flex flex-col sm:flex-row gap-4 items-center" method="POST" action="/recommend">
+
+        <div class="flex flex-1 w-full sm:w-auto">
+          <label for="User Name" class="sr-only">Username</label>
+          <div class="flex rounded-lg shadow-sm w-full">
+            <span
+              class="inline-flex items-center px-4 rounded-l-lg border border-r-0 border-gray-300 bg-gray-50 text-gray-700 text-sm font-medium flex-shrink-0">
+              <i data-lucide="user" class="w-5 h-5 mr-2"></i>
+              <span class="truncate">User Name</span>
+            </span>
+            <input type="text" id="User Name" name="User Name" placeholder="Enter username or select from suggestions"
+              class="block w-full border-gray-300 rounded-r-lg focus:ring-indigo-500 focus:border-indigo-500 p-3 text-sm"
+              list="valid-user-suggestions" required>
+          </div>
+        </div>
+
+        <div class="w-full sm:w-auto">
+          <button type="submit" value="recommend"
+            class="w-full py-3 px-6 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition duration-150 ease-in-out flex items-center justify-center">
+            <i data-lucide="search" class="w-4 h-4 mr-2"></i>
+            Get Recommendations
+          </button>
+        </div>
+      </form>
+
+      <datalist id="valid-user-suggestions">
+        {% for user_id in valid_users %}
+        <option value="{{ user_id }}">
+          {% endfor %}
+      </datalist>
+    </div>
+
+    {% if user %}
+    {% if row_data %}
+    <div class="p-4 rounded-lg bg-green-100 text-green-800 font-medium mb-8 flex items-center">
+      <i data-lucide="check-circle" class="w-5 h-5 mr-3 text-green-700 flex-shrink-0"></i>
+      {{ text }} <strong class="text-green-900">{{ user }}</strong>
+    </div>
+    {% else %}
+    <div class="p-4 rounded-lg bg-yellow-100 text-yellow-800 font-medium mb-8 flex items-center">
+      <i data-lucide="x-circle" class="w-5 h-5 mr-3 text-yellow-700 flex-shrink-0"></i>
+      {{ text }} <strong class="text-yellow-900">{{ user }}</strong>
+    </div>
+    {% endif %}
+    {% else %}
+    <div class="p-4 rounded-lg font-medium mb-8">
+      {{ text }} <strong class="text-gray-900">{{ user }}</strong>
+    </div>
+    {% endif %}
+
+    <h2 class="text-2xl font-semibold text-gray-800 mb-4 flex items-center">
+      <i data-lucide="package" class="w-6 h-6 mr-2 text-indigo-600"></i>
+      Recommended Products
+    </h2>
+
+    <div class="overflow-x-auto shadow-lg rounded-lg border border-gray-200">
+      <table class="min-w-full divide-y divide-gray-300">
+        <thead>
+          <tr>
+            {% for col_name in column_names %}
+            <th scope="col"
+              class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider bg-gray-100">
+              {{ col_name }}
+            </th>
+            {% endfor %}
+          </tr>
+        </thead>
+
+        <tbody class="divide-y divide-gray-200">
+          {% for row in row_data %}
+          <tr class="hover:bg-indigo-50 transition duration-100">
+            {% for item in row %}
+            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+              {{ item }}
+            </td>
+            {% endfor %}
+          </tr>
+          {% endfor %}
+
+          {% if not row_data and user %}
+          <tr>
+            <td colspan="{{ column_names|length }}"
+              class="px-6 py-4 text-center text-gray-500 italic flex items-center justify-center">
+              <i data-lucide="alert-triangle" class="w-4 h-4 mr-2 text-gray-500"></i>
+              No recommendations or user not found in the system.
+            </td>
+          </tr>
+          {% endif %}
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+
+  <script>
+    lucide.createIcons();
+  </script>
+</body>
+
+</html>
